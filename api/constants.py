@@ -38,7 +38,11 @@ BACKEND_API_ENDPOINT = (
 )
 UI_APP_URL = os.getenv("UI_APP_URL", "http://localhost:3010")
 
-DATABASE_URL = os.environ["DATABASE_URL"]
+_db_url = os.environ["DATABASE_URL"]
+if _db_url.startswith("postgresql://"):
+    _db_url = _db_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    os.environ["DATABASE_URL"] = _db_url
+DATABASE_URL = _db_url
 REDIS_URL = os.environ["REDIS_URL"]
 
 DEPLOYMENT_MODE = os.getenv("DEPLOYMENT_MODE", "oss")
