@@ -89,7 +89,7 @@ const NAV_SECTIONS: SidebarNavSection[] = [
     label: "BUILD",
     items: [
       {
-        title: "Voice Agents",
+        title: "Phone Assistants",
         url: "/workflow",
         icon: Workflow,
       },
@@ -99,12 +99,12 @@ const NAV_SECTIONS: SidebarNavSection[] = [
         icon: Megaphone,
       },
       {
-        title: "Models",
+        title: "AI Connections",
         url: "/model-configurations",
         icon: Brain,
       },
       {
-        title: "Telephony",
+        title: "Phone Lines",
         url: "/telephony-configurations",
         icon: Phone,
         showsTelephonyWarning: true,
@@ -145,7 +145,7 @@ const NAV_SECTIONS: SidebarNavSection[] = [
         icon: CircleDollarSign,
       },
       {
-        title: "Reports",
+        title: "Call Logs & Reports",
         url: "/reports",
         icon: FileText,
       }
@@ -215,9 +215,9 @@ export function AppSidebar() {
         asChild
         tooltip={tooltip}
         className={cn(
-          "rounded-xl transition-colors hover:bg-accent hover:text-accent-foreground",
+          "rounded-full transition-all duration-150 hover:bg-accent hover:text-accent-foreground",
           isItemActive &&
-            "bg-cta/15 font-semibold text-foreground hover:bg-cta/20 hover:text-foreground"
+            "bg-card font-bold text-primary shadow-sm hover:bg-card hover:text-primary"
         )}
       >
         <Link
@@ -235,7 +235,7 @@ export function AppSidebar() {
           <Icon
             className={cn(
               "h-4 w-4 shrink-0",
-              isItemActive && "text-cta drop-shadow-[0_0_6px_rgba(240,170,70,0.8)]"
+              isItemActive && "text-primary"
             )}
           />
           <span
@@ -341,7 +341,7 @@ export function AppSidebar() {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <a
-                    href="https://docs.dograh.com/deployment/update"
+                    href="#"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 rounded-md border bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium leading-none text-amber-900 transition-opacity hover:opacity-80 dark:bg-amber-950 dark:text-amber-200"

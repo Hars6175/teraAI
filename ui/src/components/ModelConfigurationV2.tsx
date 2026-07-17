@@ -96,7 +96,7 @@ export default function ModelConfigurationV2({ docsUrl }: { docsUrl?: string }) 
 
     if (loading) {
         return (
-            <div className="w-full max-w-4xl mx-auto space-y-6">
+            <div className="w-full max-w-6xl mx-auto space-y-6">
                 <Skeleton className="h-10 w-80" />
                 <Skeleton className="h-28 w-full" />
                 <Skeleton className="h-96 w-full" />
@@ -105,10 +105,10 @@ export default function ModelConfigurationV2({ docsUrl }: { docsUrl?: string }) 
     }
 
     return (
-        <div className="w-full max-w-4xl mx-auto space-y-6">
+        <div className="w-full max-w-6xl mx-auto space-y-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold">AI Models Configuration</h1>
+                    <h1 className="text-3xl font-bold tracking-tight">AI Connections</h1>
                     <p className="mt-2 text-sm text-muted-foreground">
                         Organization-scoped model settings.{" "}
                         {docsUrl && (

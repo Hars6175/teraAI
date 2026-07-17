@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-// Reusable Dograh wordmark. Theme-aware by default: the dark logo shows on light
+// Reusable Tera wordmark. Theme-aware by default: the dark logo shows on light
 // surfaces and the light/cream logo shows on dark. Pass `inverse` to force the
 // light logo on an always-dark surface (e.g. the auth brand panel). Pass `mark`
 // to render the square logo mark instead of the full wordmark (e.g. the app
@@ -15,24 +15,29 @@ export function BrandLogo({
   inverse?: boolean;
   mark?: boolean;
 }) {
+  const markElement = (
+    <span
+      className="flex items-center justify-center bg-primary text-primary-foreground font-extrabold rounded-full w-8 h-8 shrink-0"
+      aria-hidden="true"
+    >
+      T
+    </span>
+  );
+
   if (mark) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-mark.png" alt="Dograh" className={cn("w-auto select-none", className)} />
+      <div className={cn("inline-flex items-center", className)}>
+        {markElement}
+      </div>
     );
   }
-  if (inverse) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("w-auto select-none", className)} />
-    );
-  }
+
   return (
-    <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo.png" alt="Dograh" className={cn("block w-auto select-none dark:hidden", className)} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/dograh-logo-inverse.png" alt="Dograh" className={cn("hidden w-auto select-none dark:block", className)} />
-    </>
+    <div className={cn("inline-flex items-center gap-2 font-sans font-bold text-xl tracking-tight", inverse ? "text-white" : "text-foreground", className)}>
+      {markElement}
+      <span className="name">
+        Tera<span className="text-primary">.</span>
+      </span>
+    </div>
   );
 }

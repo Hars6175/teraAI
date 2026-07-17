@@ -149,19 +149,19 @@ export default function TelephonyConfigurationsPage() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-start justify-between gap-4 mb-6">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">Telephony configurations</h1>
-            <p className="text-muted-foreground">
+    <>
+      <div className="w-full max-w-6xl mx-auto px-4 py-8 animate-in fade-in duration-500">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-bold tracking-tight">Phone Lines</h1>
+            <p className="text-muted-foreground text-sm md:text-base">
               Connect one or more telephony provider accounts. Each campaign uses one
               configuration; inbound calls are routed to the right one by account ID.{" "}
               <a
-                href="https://docs.dograh.com/integrations/telephony/overview"
+                href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-0.5 underline"
+                className="inline-flex items-center gap-0.5 underline hover:text-foreground"
               >
                 Learn more <ExternalLink className="h-3 w-3" />
               </a>
@@ -319,7 +319,6 @@ export default function TelephonyConfigurationsPage() {
           </div>
         )}
       </div>
-
       <ConfigFormDialog
         open={createOpen}
         onOpenChange={setCreateOpen}
@@ -352,6 +351,6 @@ export default function TelephonyConfigurationsPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </>
   );
 }

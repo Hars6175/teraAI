@@ -29,7 +29,7 @@ services:
         max-size: "10m"
         max-file: "3"
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -262,6 +262,9 @@ services:
 
   ui:
     image: ${REGISTRY:-dograhai}/dograh-ui:latest
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
     environment:
       # Bind the Next.js standalone server to all interfaces
       HOSTNAME: "0.0.0.0"

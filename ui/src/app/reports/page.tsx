@@ -198,11 +198,14 @@ export default function ReportsPage() {
   const isToday = format(selectedDate, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd');
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="w-full max-w-6xl mx-auto px-4 py-8 animate-in fade-in duration-500 space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold">Daily Reports</h1>
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold tracking-tight">Call Logs & Reports</h1>
+          <p className="text-muted-foreground text-sm md:text-base">
+            Review detailed metrics, duration analytics, and disposition trends.
+          </p>
         </div>
 
         {/* Date Navigation & Workflow Selector */}
