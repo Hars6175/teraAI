@@ -1,0 +1,25 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    image: dograh-local/dograh-api:local
+    pull_policy: never
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    image: dograh-local/dograh-ui:local
+    pull_policy: never
+
+  cloudflared-ui:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared-ui-tunnel
+    profiles: ["tunnel"]
+    restart: unless-stopped
+    command: tunnel --url http://ui:3010 --metrics 0.0.0.0:2001
+    ports:
+      - "2001:2001"
+    networks:
+      - app-network

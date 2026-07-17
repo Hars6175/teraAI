@@ -47,7 +47,13 @@ class TunnelURLProvider:
         try:
             # Try to connect to cloudflared metrics endpoint
             # The service name in docker-compose is 'cloudflared'
-            metrics_url = "http://cloudflared:2000/metrics"
+            import socket
+            try:
+                socket.gethostbyname("cloudflared")
+                host = "cloudflared"
+            except socket.gaierror:
+                host = "localhost"
+            metrics_url = f"http://{host}:2000/metrics"
 
             async with aiohttp.ClientSession() as session:
                 async with session.get(
