@@ -1,0 +1,78 @@
+services:
+  # 1) MinIO Storage
+  - type: web
+    name: minio
+    env: docker
+    dockerfilePath: deploy/minio/Dockerfile
+    plan: free
+    envVars:
+      - key: MINIO_ROOT_USER
+        value: minioadmin
+      - key: MINIO_ROOT_PASSWORD
+        value: minioadmin
+      - key: PORT
+        value: 9000
+
+  # 2) FastAPI Backend API
+  - type: web
+    name: api
+    env: docker
+    dockerfilePath: api/Dockerfile
+    plan: free
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromRedis:
+          name: redis
+          property: connectionString
+      - key: OSS_JWT_SECRET
+        generateValue: true
+      - key: BACKEND_API_ENDPOINT
+        fromService:
+          type: web
+          name: api
+          property: host
+      - key: MINIO_ENDPOINT
+        value: http://minio:9000
+      - key: MINIO_PUBLIC_ENDPOINT
+        fromService:
+          type: web
+          name: minio
+          property: host
+      - key: MINIO_ACCESS_KEY
+        value: minioadmin
+      - key: MINIO_SECRET_KEY
+        value: minioadmin
+      - key: MINIO_BUCKET
+        value: voice-audio
+      - key: MINIO_SECURE
+        value: "false"
+
+  # 3) Next.js Frontend UI
+  - type: web
+    name: ui
+    env: docker
+    dockerfilePath: ui/Dockerfile
+    plan: free
+    envVars:
+      - key: BACKEND_URL
+        value: http://api:8000
+      - key: NODE_ENV
+        value: production
+
+databases:
+  # PostgreSQL Database (Managed by Render)
+  - name: postgres
+    plan: free
+    ipAllowList: []
+
+redis:
+  # Redis Cache (Managed by Render)
+  - name: redis
+    plan: free
+    ipAllowList: []
