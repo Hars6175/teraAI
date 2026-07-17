@@ -27,7 +27,8 @@ services:
           name: postgres
           property: connectionString
       - key: REDIS_URL
-        fromRedis:
+        fromService:
+          type: redis
           name: redis
           property: connectionString
       - key: OSS_JWT_SECRET
@@ -57,7 +58,8 @@ services:
   - type: web
     name: ui
     env: docker
-    dockerfilePath: ui/Dockerfile
+    rootDir: ui
+    dockerfilePath: Dockerfile
     plan: free
     envVars:
       - key: BACKEND_URL
@@ -65,14 +67,14 @@ services:
       - key: NODE_ENV
         value: production
 
-databases:
-  # PostgreSQL Database (Managed by Render)
-  - name: postgres
+  # 4) Redis Cache (Managed by Render)
+  - type: redis
+    name: redis
     plan: free
     ipAllowList: []
 
-redis:
-  # Redis Cache (Managed by Render)
-  - name: redis
+databases:
+  # PostgreSQL Database (Managed by Render)
+  - name: postgres
     plan: free
     ipAllowList: []
