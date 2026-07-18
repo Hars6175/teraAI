@@ -38,9 +38,7 @@ class MinioFileSystem(BaseFileSystem):
             public_endpoint.startswith("http://")
             or public_endpoint.startswith("https://")
         ):
-            raise ValueError(
-                f"MINIO_PUBLIC_ENDPOINT must include a scheme (http:// or https://), got: {public_endpoint!r}"
-            )
+            public_endpoint = "https://" + public_endpoint
 
         self.bucket_name = bucket_name
         self.endpoint = endpoint
