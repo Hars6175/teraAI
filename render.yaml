@@ -22,6 +22,12 @@ services:
     envVars:
       - key: ENVIRONMENT
         value: production
+      - key: ARQ_WORKERS
+        value: "0"
+      - key: ENABLE_ARI
+        value: "false"
+      - key: ENABLE_CAMPAIGN
+        value: "false"
       - key: DATABASE_URL
         fromDatabase:
           name: postgres

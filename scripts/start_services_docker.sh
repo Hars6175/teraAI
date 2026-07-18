@@ -59,8 +59,13 @@ start() {
 ### 4) Start services (logs go to stdout for `docker logs`)
 ###############################################################################
 
-start ari_manager           python -m api.services.telephony.ari_manager
-start campaign_orchestrator python -m api.services.campaign.campaign_orchestrator
+if [[ "${ENABLE_ARI:-false}" == "true" ]]; then
+  start ari_manager           python -m api.services.telephony.ari_manager
+fi
+
+if [[ "${ENABLE_CAMPAIGN:-false}" == "true" ]]; then
+  start campaign_orchestrator python -m api.services.campaign.campaign_orchestrator
+fi
 
 # Spawn FASTAPI_WORKERS independent uvicorn processes on consecutive ports
 # starting at UVICORN_BASE_PORT. nginx upstream (configured in setup_remote.sh)
@@ -72,9 +77,11 @@ for ((i=0; i<FASTAPI_WORKERS; i++)); do
   start "uvicorn$i" uvicorn api.app:app --host 0.0.0.0 --port "$port" --workers 1
 done
 
-for ((i=1; i<=ARQ_WORKERS; i++)); do
-  start "arq$i" python -m arq api.tasks.arq.WorkerSettings --custom-log-dict api.tasks.arq.LOG_CONFIG
-done
+if (( ARQ_WORKERS > 0 )); then
+  for ((i=1; i<=ARQ_WORKERS; i++)); do
+    start "arq$i" python -m arq api.tasks.arq.WorkerSettings --custom-log-dict api.tasks.arq.LOG_CONFIG
+  done
+fi
 
 ###############################################################################
 ### 5) Wait — if any service exits, tear the container down so docker restarts
