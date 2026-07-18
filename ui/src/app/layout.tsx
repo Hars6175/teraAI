@@ -78,7 +78,6 @@ export default function RootLayout({
                           {children}
                         </AppLayout>
                         <Toaster />
-                        <ChatwootWidget />
                       </OnboardingProvider>
                     </TelephonyConfigWarningsProvider>
                   </OrgConfigProvider>
